@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.breez.shorturl.mapper.GroupMapper">
+
+    <select id="getGroupArea" resultType="com.breez.shorturl.entity.vo.GroupAreaVo">
+        select
+            g.name, count(s.id)
+         as value from
+            su_group g, su_short_info s
+         where
+             g.user_id=#{userId}
+          and
+             s.group_id=g.id
+          and
+             s.is_deleted=0
+          and
+            g.is_deleted=0
+          GROUP BY
+            g.name
+    </select>
+</mapper>

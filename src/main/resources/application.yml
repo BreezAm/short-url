@@ -1,0 +1,63 @@
+server:
+  port: 8080
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  profiles:
+    active: dev
+  ############################【邮箱配置】#########################
+  mail:
+    host: smtp.qq.com
+    username: 873634918@qq.com
+    password: xpdmounrxbjvbfgh
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+          starttls:
+            enable: true
+            required: true
+      port: 465
+  #############################################################
+mybatis-plus:
+  type-aliases-package: com.breez.shorturl.entity
+  typeEnumsPackage: com.breez.shorturl.entity.enums
+  mapper-locations: classpath:mapper/**/*.xml
+  #########################【权限令牌配置】#########################
+# Token令牌
+token:
+  # 请求头
+  header: Authorization
+  # 私钥(尽量复杂)
+  secret: dmjisdoeifjiojfosd
+  # 过期时间（分钟）
+  expireTime: 10
+  ########################【云存储配置】#############################
+aliyun:
+  oss:
+    file:
+      endpoint: oss-cn-beijing.aliyuncs.com
+      accessKeyId: LTAI5tJGxrPkw9p6ixRXEZMb
+      accessKeySecret: brEJmHsvlrFjDe6eEkjGCQTZKeB29G#访问密钥
+      bucketName: 666url
+
+######################################
+#               短网址配置            #
+######################################
+shorturl:
+  #短网址访问域名（后面必须加斜杠）
+  #domain: http://breez.work/   #（线上：写自己的）
+  domain: http://localhost:8080/ #(本地)
+
+######################################
+#           分布式文件系统            #
+######################################
+minio:
+  endpoint: http://1.117.246.153:9000
+  bucketName: 666url
+  access_key: ZA689Y6TG04ZMK0BW4B3
+  secret_key: RsXz5kkRJwPKZwxiPSJosHZSFmUp9C45CJBA1DF2
+

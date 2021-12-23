@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.breez.shorturl.mapper.AnalysisMapper">
+
+    <select id="selectFrequencyByUserId" resultType="java.lang.Long">
+    SELECT
+	    sum( a.frequency )
+    FROM
+	    su_analysis a
+    WHERE
+	    a.user_id=#{userId}
+	and a.is_deleted=0
+    </select>
+    <select id="selectAnalysisDayByUserId" resultType="com.breez.shorturl.entity.Analysis">
+
+SELECT
+	*
+FROM
+	su_analysis a
+WHERE
+	TO_DAYS( a.create_time )= TO_DAYS(now())
+	and a.user_id=#{userId}
+	and a.url_id=#{urlId}
+    </select>
+    <select id="selectAnalysisByDay" resultType="com.breez.shorturl.entity.View">
+		SELECT
+		DATE_FORMAT( create_time, '%Y-%m-%d' ) days,
+		sum(frequency) as count
+		FROM
+		( SELECT * FROM su_analysis
+		WHERE user_id=#{userId} and DATE_SUB( CURDATE( ), INTERVAL  7 DAY )&lt;=date( create_time) ) as su
+		GROUP BY
+		days;
+	</select>
+</mapper>
